@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :gigs
   resources :concerts
   resources :vanues
   resources :bands
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  root "concerts#index"
 end
