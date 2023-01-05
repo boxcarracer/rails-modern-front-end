@@ -1,0 +1,2 @@
+class Vanue < ApplicationRecord
+end

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @vanue %>
+
+<div>
+  <%= link_to "Edit this vanue", edit_vanue_path(@vanue) %> |
+  <%= link_to "Back to vanues", vanues_path %>
+
+  <%= button_to "Destroy this vanue", @vanue, method: :delete %>
+</div>
