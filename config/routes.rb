@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :ticket_orders
+  resources :tickets
   devise_for :users
   resources :gigs
   resources :concerts

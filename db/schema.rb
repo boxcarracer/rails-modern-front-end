@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_05_161020) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_05_161907) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_161020) do
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "enum_access", ["general", "members", "vips"]
   create_enum "enum_ilk", ["concert", "meet_n_greet", "battle"]
+  create_enum "enum_status", ["unsold", "held", "purchased", "refunded"]
 
   create_table "bands", force: :cascade do |t|
     t.string "name"
@@ -51,6 +52,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_161020) do
     t.index ["concert_id"], name: "index_gigs_on_concert_id"
   end
 
+  create_table "ticket_orders", force: :cascade do |t|
+    t.bigint "concert_id", null: false
+    t.string "status"
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["concert_id"], name: "index_ticket_orders_on_concert_id"
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.bigint "concert_id", null: false
+    t.integer "row"
+    t.integer "number"
+    t.bigint "user_id", null: false
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "ticket_orders_id"
+    t.index ["concert_id"], name: "index_tickets_on_concert_id"
+    t.index ["ticket_orders_id"], name: "index_tickets_on_ticket_orders_id"
+    t.index ["user_id"], name: "index_tickets_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -75,4 +99,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_161020) do
   add_foreign_key "concerts", "vanues"
   add_foreign_key "gigs", "bands"
   add_foreign_key "gigs", "concerts"
+  add_foreign_key "ticket_orders", "concerts"
+  add_foreign_key "tickets", "concerts"
+  add_foreign_key "tickets", "ticket_orders", column: "ticket_orders_id"
+  add_foreign_key "tickets", "users"
 end
