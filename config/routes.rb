@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   resources :vanues
   resources :bands
 
-  root "concerts#index"
+  root "bands#index"
 end

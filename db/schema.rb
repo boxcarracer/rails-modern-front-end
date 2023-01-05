@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_05_161907) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_05_165159) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_161907) do
     t.index ["vanue_id"], name: "index_concerts_on_vanue_id"
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "concert_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["concert_id"], name: "index_favorites_on_concert_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
   create_table "gigs", force: :cascade do |t|
     t.bigint "band_id", null: false
     t.bigint "concert_id", null: false
@@ -50,6 +59,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_161907) do
     t.datetime "updated_at", null: false
     t.index ["band_id"], name: "index_gigs_on_band_id"
     t.index ["concert_id"], name: "index_gigs_on_concert_id"
+  end
+
+  create_table "shopping_carts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_shopping_carts_on_user_id"
   end
 
   create_table "ticket_orders", force: :cascade do |t|
@@ -97,8 +113,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_161907) do
   end
 
   add_foreign_key "concerts", "vanues"
+  add_foreign_key "favorites", "concerts"
+  add_foreign_key "favorites", "users"
   add_foreign_key "gigs", "bands"
   add_foreign_key "gigs", "concerts"
+  add_foreign_key "shopping_carts", "users"
   add_foreign_key "ticket_orders", "concerts"
   add_foreign_key "tickets", "concerts"
   add_foreign_key "tickets", "ticket_orders", column: "ticket_orders_id"
