@@ -1,5 +1,5 @@
 class Band < ApplicationRecord
-  validates :name,
-            format: { with: /\A[a-zA-Z]+\z/,
-            message: "only allows letters" }
+  def genres
+    genre_tags.split(",")
+  end
 end
