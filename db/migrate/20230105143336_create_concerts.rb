@@ -7,7 +7,7 @@ class CreateConcerts < ActiveRecord::Migration[7.0]
       t.string :name
       t.text :description
       t.datetime :start_time
-      t.belongs_to :vanue, null: false, foreign_key: true
+      t.belongs_to :venue, null: false, foreign_key: true
       t.text :genre_tags
       t.string :ilk, enum_name: :enum_ilk
       t.string :access, enum_name: :enum_access

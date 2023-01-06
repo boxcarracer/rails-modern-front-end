@@ -32,13 +32,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_165159) do
     t.string "name"
     t.text "description"
     t.datetime "start_time"
-    t.bigint "vanue_id", null: false
+    t.bigint "venue_id", null: false
     t.text "genre_tags"
     t.string "ilk"
     t.string "access"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["vanue_id"], name: "index_concerts_on_vanue_id"
+    t.index ["venue_id"], name: "index_concerts_on_venue_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -74,7 +74,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_165159) do
     t.integer "count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "shopping_cart_id"
     t.index ["concert_id"], name: "index_ticket_orders_on_concert_id"
+    t.index ["shopping_cart_id"], name: "index_ticket_orders_on_shopping_cart_id"
   end
 
   create_table "tickets", force: :cascade do |t|
@@ -85,9 +87,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_165159) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "ticket_orders_id"
+    t.bigint "ticket_order_id"
+    t.bigint "shopping_cart_id"
     t.index ["concert_id"], name: "index_tickets_on_concert_id"
-    t.index ["ticket_orders_id"], name: "index_tickets_on_ticket_orders_id"
+    t.index ["shopping_cart_id"], name: "index_tickets_on_shopping_cart_id"
+    t.index ["ticket_order_id"], name: "index_tickets_on_ticket_order_id"
     t.index ["user_id"], name: "index_tickets_on_user_id"
   end
 
@@ -103,7 +107,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_165159) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "vanues", force: :cascade do |t|
+  create_table "venues", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.integer "rows"
@@ -112,14 +116,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_165159) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "concerts", "vanues"
+  add_foreign_key "concerts", "venues"
   add_foreign_key "favorites", "concerts"
   add_foreign_key "favorites", "users"
   add_foreign_key "gigs", "bands"
   add_foreign_key "gigs", "concerts"
   add_foreign_key "shopping_carts", "users"
   add_foreign_key "ticket_orders", "concerts"
+  add_foreign_key "ticket_orders", "shopping_carts"
   add_foreign_key "tickets", "concerts"
-  add_foreign_key "tickets", "ticket_orders", column: "ticket_orders_id"
+  add_foreign_key "tickets", "shopping_carts"
+  add_foreign_key "tickets", "ticket_orders"
   add_foreign_key "tickets", "users"
 end

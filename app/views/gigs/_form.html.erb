@@ -1,37 +1,16 @@
-<%= form_with(model: gig) do |form| %>
-  <% if gig.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(gig.errors.count, "error") %> prohibited this gig from being saved:</h2>
 
-      <ul>
-        <% gig.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= simple_form_for(@gig) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div>
-    <%= form.label :band_id, style: "display: block" %>
-    <%= form.text_field :band_id %>
+  <div class="form-inputs">
+    <%= f.association :band %>
+    <%= f.association :concert %>
+    <%= f.input :order %>
+    <%= f.input :duration_minutes %>
   </div>
 
-  <div>
-    <%= form.label :concert_id, style: "display: block" %>
-    <%= form.text_field :concert_id %>
-  </div>
-
-  <div>
-    <%= form.label :order, style: "display: block" %>
-    <%= form.number_field :order %>
-  </div>
-
-  <div>
-    <%= form.label :duration_minutes, style: "display: block" %>
-    <%= form.number_field :duration_minutes %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="form-actions">
+    <%= f.button :submit %>
   </div>
 <% end %>

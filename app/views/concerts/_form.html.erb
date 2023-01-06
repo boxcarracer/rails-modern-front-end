@@ -1,52 +1,33 @@
-<%= form_with(model: concert) do |form| %>
-  <% if concert.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(concert.errors.count, "error") %> prohibited this concert from being saved:</h2>
-
-      <ul>
-        <% concert.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<%= simple_form_for(@concert) do |f| %>
+  <article class="my-4">
+    <div class="grid gap-4 grid-cols-6">
+      <div class="col-span-2 text-xl">
+        <%= f.input :start_time %>
+      </div>
+      <div class="col-span-3">
+        <div class="name">
+          <div class="text-lg font-bold">
+            <%= f.input :name %>
+          </div>
+        </div>
+        <div class="bands">
+          <%= concert.bands.map(&:name).join(", ") %>
+        </div>
+        <div class="genres">
+          <%= f.input :genre_tags %>
+        </div>
+        <div class="text-gray-500 font-bold">
+          <%= f.association :venue %>
+        </div>
+      </div>
+      <div class="col-span-1 text-xl my-10">
+        <%= f.input :ilk, collection: Concert.ilks %>
+        <%= f.input :access, collection: Concert.accesses %>
+        <%= f.button :submit %>
+      </div>
     </div>
-  <% end %>
+  </article>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div>
-    <%= form.label :start_time, style: "display: block" %>
-    <%= form.datetime_field :start_time %>
-  </div>
-
-  <div>
-    <%= form.label :vanue_id, style: "display: block" %>
-    <%= form.text_field :vanue_id %>
-  </div>
-
-  <div>
-    <%= form.label :genre_tags, style: "display: block" %>
-    <%= form.text_area :genre_tags %>
-  </div>
-
-  <div>
-    <%= form.label :ilk, style: "display: block" %>
-    <%= form.text_field :ilk %>
-  </div>
-
-  <div>
-    <%= form.label :access, style: "display: block" %>
-    <%= form.text_field :access %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 <% end %>

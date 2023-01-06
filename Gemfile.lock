@@ -76,6 +76,7 @@ GEM
     cssbundling-rails (1.1.2)
       railties (>= 6.0.0)
     date (3.3.3)
+    date_by_example (0.1.1)
     debug (1.7.1)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
@@ -203,6 +204,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   cssbundling-rails
+  date_by_example
   debug
   devise
   jbuilder

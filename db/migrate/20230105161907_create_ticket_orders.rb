@@ -9,7 +9,7 @@ class CreateTicketOrders < ActiveRecord::Migration[7.0]
     end
 
     change_table :tickets do |t|
-      t.references :ticket_orders, null: true, foreign_key: true
+      t.references :ticket_order, null: true, foreign_key: true
     end
   end
 end
