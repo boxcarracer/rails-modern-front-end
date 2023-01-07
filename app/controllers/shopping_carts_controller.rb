@@ -1,5 +1,5 @@
 class ShoppingCartsController < ApplicationController
-  before_action :set_shopping_cart, only: %i[ show edit update destroy ]
+  before_action :set_shopping_cart, only: %i[show edit update destroy]
 
   # GET /shopping_carts or /shopping_carts.json
   def index
@@ -58,13 +58,14 @@ class ShoppingCartsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_shopping_cart
-      @shopping_cart = ShoppingCart.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def shopping_cart_params
-      params.require(:shopping_cart).permit(:user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_shopping_cart
+    @shopping_cart = ShoppingCart.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def shopping_cart_params
+    params.require(:shopping_cart).permit(:user_id)
+  end
 end

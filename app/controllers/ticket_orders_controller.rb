@@ -1,5 +1,5 @@
 class TicketOrdersController < ApplicationController
-  before_action :set_ticket_order, only: %i[ show edit update destroy ]
+  before_action :set_ticket_order, only: %i[show edit update destroy]
 
   # GET /ticket_orders or /ticket_orders.json
   def index
@@ -58,13 +58,14 @@ class TicketOrdersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_ticket_order
-      @ticket_order = TicketOrder.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def ticket_order_params
-      params.require(:ticket_order).permit(:concert_id, :status, :count)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_ticket_order
+    @ticket_order = TicketOrder.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def ticket_order_params
+    params.require(:ticket_order).permit(:concert_id, :status, :count)
+  end
 end

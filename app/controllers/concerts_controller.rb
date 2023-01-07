@@ -1,5 +1,5 @@
 class ConcertsController < ApplicationController
-  before_action :set_concert, only: %i[ show edit update destroy ]
+  before_action :set_concert, only: %i[show edit update destroy]
 
   # GET /concerts or /concerts.json
   def index
@@ -61,13 +61,14 @@ class ConcertsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_concert
-      @concert = Concert.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def concert_params
-      params.require(:concert).permit(:name, :description, :start_time, :venue_id, :genre_tags, :ilk, :access)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_concert
+    @concert = Concert.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def concert_params
+    params.require(:concert).permit(:name, :description, :start_time, :venue_id, :genre_tags, :ilk, :access)
+  end
 end

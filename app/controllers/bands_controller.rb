@@ -1,5 +1,5 @@
 class BandsController < ApplicationController
-  before_action :set_band, only: %i[ show edit update destroy ]
+  before_action :set_band, only: %i[show edit update destroy]
 
   # GET /bands or /bands.json
   def index
@@ -58,13 +58,14 @@ class BandsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_band
-      @band = Band.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def band_params
-      params.require(:band).permit(:name, :description, :genre_tags)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_band
+    @band = Band.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def band_params
+    params.require(:band).permit(:name, :description, :genre_tags)
+  end
 end

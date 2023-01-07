@@ -1,5 +1,5 @@
 class GigsController < ApplicationController
-  before_action :set_gig, only: %i[ show edit update destroy ]
+  before_action :set_gig, only: %i[show edit update destroy]
 
   # GET /gigs or /gigs.json
   def index
@@ -58,13 +58,14 @@ class GigsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_gig
-      @gig = Gig.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def gig_params
-      params.require(:gig).permit(:band_id, :concert_id, :order, :duration_minutes)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_gig
+    @gig = Gig.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def gig_params
+    params.require(:gig).permit(:band_id, :concert_id, :order, :duration_minutes)
+  end
 end
