@@ -40,6 +40,7 @@
               <%= button_to(
                     "Unfavorite",
                     favorite_path(id: current_user.favorite(concert)),
+                    form: { data: { "turbo-frame": "favorite-concerts" } },
                     method: "delete",
                     class: SimpleForm.button_class
                   ) %>
@@ -47,6 +48,7 @@
               <%= button_to(
                     "Favorite",
                     favorites_path(concert_id: concert.id),
+                    form: { data: { "turbo-frame": "favorite-concerts" } },
                     method: "post",
                     class: SimpleForm.button_class
                   ) %>

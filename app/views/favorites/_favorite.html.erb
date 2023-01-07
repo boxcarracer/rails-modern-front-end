@@ -29,6 +29,7 @@
               "Unfavorite",
               favorite_path(id: favorite.id),
               method: "delete",
+              form: { data: { "turbo-frame": "favorite-concerts" } },
               class: SimpleForm.button_class
             ) %>
       </div>
