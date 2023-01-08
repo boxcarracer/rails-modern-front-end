@@ -20,6 +20,9 @@ Bundler/InsecureProtocolSource:
     - "**/Gemfile"
     - "**/gems.rb"
 
+Bundler/OrderedGems:
+  Enabled: true
+
 Gemspec/DuplicatedAssignment:
   Enabled: true
   Include:
